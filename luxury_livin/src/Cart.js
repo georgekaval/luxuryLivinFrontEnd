@@ -6,7 +6,7 @@ const Cart = (props) => {
 
 
 // this is just to simulate props.prices
-let prices = []
+let prices = [0]
 console.log(prices)
 
   return(
@@ -16,13 +16,13 @@ console.log(prices)
         <tbody>
         {
           props.cartItems.map(e=> {
-            let randomPrice = Math.floor(Math.random() * 9) + 1
-            prices.push(randomPrice)
+
+            prices.push(e.price)
             return (
               <tr>
-                <td>X</td>
-                <td id='cartItemCell'>{e}</td>
-                <td id='itemPriceCell'>${randomPrice}</td>
+                <td id='XremoveBtn' onClick={()=> props.removeItem(e)}>X</td>
+                <td id='cartItemCell'>{e.item}</td>
+                <td id='itemPriceCell'>${e.price}</td>
               </tr>
             )
           })
