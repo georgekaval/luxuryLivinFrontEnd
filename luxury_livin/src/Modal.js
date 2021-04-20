@@ -4,7 +4,7 @@ import './App.css'
 
 
 function Modal(props) {
-  const toggleClass = props.show ? 'modal display-block' : 'modal display-none'
+  const toggleClass = props.show ? 'display-block' : 'display-none'
   return (
 
     <div className={toggleClass}>
