@@ -7,7 +7,7 @@ const Cart = (props) => {
 
 // this is just to simulate props.prices
 let prices = [0]
-console.log(prices)
+
 
   return(
     <>
