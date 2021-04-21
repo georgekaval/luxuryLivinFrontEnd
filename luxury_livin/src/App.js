@@ -24,7 +24,10 @@ class App extends Component {
       show: false,
       cartItems: [], //<---NOT FROM DATA BASE!!
       userId: '', //<---NOT USING THIS RIGHT NOW
-
+      baseUrl: 'https://api.chucknorris.io/jokes/random',
+      query: '?catergory=',
+      jokeCategories: '',
+      searchURL: '',
     }
   }
 
