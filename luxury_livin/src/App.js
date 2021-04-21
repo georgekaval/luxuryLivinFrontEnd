@@ -77,13 +77,10 @@ addToCart = (item) => {
 
 removeItem = (item) => {
   console.log('removeItem() fired off...')
-  console.log(this.state.cartItems.indexOf(item))
-
-  let index = this.state.cartItems.indexOf(item)
+  console.log(item.item, item.price)
+  item.item = 'REMOVED'
+  item.price = 0
   let cartItems = this.state.cartItems
-  console.log(cartItems.slice(index, 1))
-  let itemToBeRemoved = cartItems.slice(index, 1)
-  cartItems.pop(itemToBeRemoved)
   this.setState({
     cartItems: cartItems
   })
@@ -96,7 +93,6 @@ componentDidMount() {
 
 
 render() {
-
 
   return (
     <div className="App">
@@ -138,9 +134,9 @@ render() {
                   <table className='itemTable'>
 
                       <tr>
-                          <td id='XremoveBtn'>X</td>
-                          <td>edit</td>
-                          <td onClick={()=> this.addToCart(item)}>Add To Cart</td>
+                          <td id='XremoveBtn'>x</td>
+                          <td><button id='editBtn'>Edit</button></td>
+                          <td><button id='addToCartBtn' onClick={()=> this.addToCart(item)}>Add To Cart</button></td>
                       </tr>
                   </table>
 
