@@ -1,7 +1,9 @@
 import './App.css';
 import React, { Component } from 'react'
 import Modal from './Modal'
+import ModalJoke from './ModalJoke'
 import Cart from './Cart'
+import Jokes from './Jokes'
 
 console.log(process.env.NODE_ENV)
 let baseURL = ''
@@ -12,22 +14,16 @@ if (process.env.NODE_ENV === 'development') {
   baseURL = 'heroku URL' // guess I don't need this but I just did it like this bc lesson was like this
 }
 
-
-
-
-
 class App extends Component {
   constructor(props) {
     super(props)
     this.state = {
       cars: [],
       show: false,
+      showJoke: false,
       cartItems: [], //<---NOT FROM DATA BASE!!
       userId: '', //<---NOT USING THIS RIGHT NOW
       baseUrl: 'https://api.chucknorris.io/jokes/random',
-      query: '?catergory=',
-      jokeCategories: '',
-      searchURL: '',
     }
   }
 
@@ -65,6 +61,14 @@ hideModal = () => {
   this.setState( { show: false } )
 }
 
+showJokeModal = () => {
+  this.setState( { showJoke: true } )
+}
+
+hideJokeModal = () => {
+  this.setState( { showJoke: false } )
+}
+
 addToCart = (item) => {
   console.log('addToCart() fired off...')
   console.log(item)
@@ -73,7 +77,8 @@ addToCart = (item) => {
   console.log(this.state.cartItems)
   let cartItems = this.state.cartItems
   this.setState({
-    cartItems: cartItems
+    cartItems: cartItems,
+
   })
   this.showModal()
 }
@@ -90,6 +95,25 @@ removeItem = (item) => {
   this.setState({
     cartItems: cartItems
   })
+}
+
+handleChange = (event) => {
+this.setState({ [event.target.id]: event.target.value })
+}
+handleSubmit = (event) => {
+  event.preventDefault()
+  this.setState({
+    searchURL:this.state.baseURL
+  }, () => {
+    fetch(this.state.searchURL)
+    .then(response => {
+      return response.json()
+    }).then(json => this.setState({
+      joke: json,
+    }),
+      err => console.log(err))
+  })
+  this.showJokeModal()
 }
 
 componentDidMount() {
@@ -118,7 +142,15 @@ render() {
 
         <h1 id='mainHeader'>Luxury Living</h1>
         <h1 id='secondaryHeader'>The Life YOU Want</h1>
-
+        <div>
+          <form onSubmit={this.handleSubmit}>
+            <input onClick={()=>  this.showJokeModal()}
+              type='submit'
+              value= 'Hear a joke while you browse!'
+              onChange={this.handleChange}
+            />
+            </form>
+        </div>
         <div className='itemsContainer'>
         {
           this.state.cars.map(car => {
@@ -161,7 +193,11 @@ render() {
                 removeItem={this.removeItem}
                 />
         </Modal>
-
+        <ModalJoke show={this.state.showJoke} hide={this.hideJokeModal}>
+          <Jokes
+          joke={this.state.joke}
+          />
+        </ModalJoke>
 
     </div>
   );
