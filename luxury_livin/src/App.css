@@ -139,15 +139,25 @@ nav {
   cursor: pointer;
 }
 
-#addToCartBtn {
+#addToCartBtn, #editBtn {
+  margin-top: .2rem;
   background: none;
-  color: white;
-  border-color: white;
-  border-radius: 10px;
+  color: #5834eb;
+  border: solid 1px #5834eb;
+
+  border-radius: 2px;
 }
 
 #addToCartBtn:hover {
+  background-color: #5834eb;
+  border-color: white;
+  color: white;
+  opacity: 50%;
+  cursor: pointer;
+}
 
+#XremoveBtn {
+  opacity: 40%;
 }
 
 #XremoveBtn:hover {
