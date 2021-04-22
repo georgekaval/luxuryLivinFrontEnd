@@ -63,7 +63,31 @@ nav {
   /* transform: translate(-50%,-50%); */
 }
 
+<<<<<<< HEAD
 .modal-gif {
+=======
+
+.modal-gif {
+  position:fixed;
+  width: 33%;
+  height: 200px;
+  border-radius: 10px;
+  top:10%;
+  left:5%;
+}
+
+.modal-newForm {
+  position:fixed;
+  width: 33%;
+  height: 200px;
+  border-radius: 10px;
+  top:60%;
+  right:5%;
+}
+
+
+.modal-jokes {
+>>>>>>> 50e58947b8fe90c94578885e7628f4b05795cc40
   position:fixed;
   width: 33%;
   height: 200px;

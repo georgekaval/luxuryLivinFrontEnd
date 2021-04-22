@@ -1,11 +1,25 @@
 import './App.css';
 import React, { Component } from 'react'
+<<<<<<< HEAD
+=======
+
+>>>>>>> 50e58947b8fe90c94578885e7628f4b05795cc40
 import CartModal from './CartModal'
 import GifModal from './GifModal'
 import Cart from './Cart'
 import Gif from './Gif'
 import NewForm from './NewForm'
 import NewFormModal from './NewFormModal'
+<<<<<<< HEAD
+=======
+
+import Modal from './Modal'
+import ModalJoke from './ModalJoke'
+
+import Jokes from './Jokes'
+
+>>>>>>> 50e58947b8fe90c94578885e7628f4b05795cc40
+
 
 console.log(process.env.NODE_ENV)
 let baseURL = ''
@@ -26,6 +40,10 @@ class App extends Component {
     this.state = {
       cars: [],
       show: false,
+<<<<<<< HEAD
+=======
+
+>>>>>>> 50e58947b8fe90c94578885e7628f4b05795cc40
       gifShow: false,
       newFormShow: false,
       giphyBaseURL: 'https://api.giphy.com/v1/gifs/random?tag=',
@@ -33,6 +51,12 @@ class App extends Component {
       gifApiKey: '&api_key=G8YyTky07ZEq5yELqIiipmrfAbVyqEm4',
       gifSearchURL: '',
 
+<<<<<<< HEAD
+=======
+
+      showJoke: false,
+
+>>>>>>> 50e58947b8fe90c94578885e7628f4b05795cc40
       cartItems: [], //<---NOT FROM DATA BASE!!
       userId: '', //<---NOT USING THIS RIGHT NOW
 
@@ -73,6 +97,10 @@ hideModal = () => {
   this.setState( { show: false } )
 }
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 50e58947b8fe90c94578885e7628f4b05795cc40
 showGifModal = () => {
   this.setState( { gifShow: true } )
 }
@@ -83,6 +111,7 @@ hideGifModal = () => {
 
 showNewFormModal = () => {
   this.setState( { newFormShow: true } )
+<<<<<<< HEAD
 }
 
 hideNewFormModal = () => {
@@ -101,6 +130,34 @@ getGif = () => {
       gif: json.data.url
     }), err => console.log(err))
   })
+=======
+}
+
+hideNewFormModal = () => {
+  this.setState( { newFormShow: false } )
+}
+
+getGif = () => {
+
+  this.setState({
+    gifSearchURL: this.state.giphyBaseURL+this.state.tag+this.state.gifApiKey
+  }, ()=> {
+    console.log(this.state.gifSearchURL)
+    fetch(this.state.gifSearchURL).then(res => {
+      return res.json()
+      }).then(json => this.setState({
+      gif: json.data.url
+    }), err => console.log(err))
+  })
+
+showJokeModal = () => {
+  this.setState( { showJoke: true } )
+}
+
+hideJokeModal = () => {
+  this.setState( { showJoke: false } )
+
+>>>>>>> 50e58947b8fe90c94578885e7628f4b05795cc40
 }
 
 addToCart = (item) => {
@@ -127,6 +184,30 @@ removeItem = (item) => {
   })
 }
 
+
+<<<<<<< HEAD
+=======
+
+
+handleChange = (event) => {
+this.setState({ [event.target.id]: event.target.value })
+}
+handleSubmit = (event) => {
+  event.preventDefault()
+  this.setState({
+    searchURL:this.state.baseJokesUrl
+  }, () => {
+    fetch(this.state.searchURL)
+    .then(response => {
+      return response.json()
+    }).then(json => this.setState({
+      joke: json,
+    }),
+      err => console.log(err))
+  })
+  this.showJokeModal()
+}
+>>>>>>> 50e58947b8fe90c94578885e7628f4b05795cc40
 
 
 componentDidMount() {
@@ -165,9 +246,27 @@ console.log(this.state.gif)
         <h1 id='mainHeader'>Luxury Living</h1>
         <h1 id='secondaryHeader'>The Life YOU Want</h1>
 
+<<<<<<< HEAD
         <NewFormModal show={this.state.newFormShow}>
             <NewForm hide={this.hideNewFormModal}/>
         </NewFormModal>
+=======
+
+        <NewFormModal show={this.state.newFormShow}>
+            <NewForm hide={this.hideNewFormModal}/>
+        </NewFormModal>
+
+        <div>
+          <form  onSubmit={this.handleSubmit}>
+            <input className="jokeButton" onClick={()=>  this.showJokeModal()}
+              type='submit'
+              value= 'Click here for a Chuch Norris joke!'
+              onChange={this.handleChange}
+            />
+            </form>
+        </div>
+
+>>>>>>> 50e58947b8fe90c94578885e7628f4b05795cc40
         <div className='itemsContainer'>
         {
           this.state.cars.map(car => {
@@ -210,6 +309,10 @@ console.log(this.state.gif)
                 removeItem={this.removeItem}
                 hide={this.hideModal}
                 />
+<<<<<<< HEAD
+=======
+
+>>>>>>> 50e58947b8fe90c94578885e7628f4b05795cc40
         </CartModal>
 
         <GifModal show={this.state.gifShow}>
@@ -220,7 +323,21 @@ console.log(this.state.gif)
               hide={this.hideGifModal}/>
 
         </GifModal>
+<<<<<<< HEAD
 
+=======
+
+        </Modal>
+        <ModalJoke show={this.state.showJoke} hide={this.hideJokeModal}>
+          {(this.state.joke)
+          ? <Jokes
+          joke={this.state.joke}/>
+          : ''
+        }
+
+
+        </ModalJoke>
+>>>>>>> 50e58947b8fe90c94578885e7628f4b05795cc40
 
     </div>
   );
