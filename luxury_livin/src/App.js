@@ -153,6 +153,33 @@ handleSubmit = (event) => {
   this.showJokeModal()
 }
 
+// Debbie's code
+
+addCar = (newCar) => {
+    const copyCars = [...this.state.car]
+    copyCars.push(newCar)
+    this.setState({
+      car: copyCars,
+    })
+  }
+  // USING ASYNC/AWAIT
+  deleteCar = async (id)=> {
+    const url = baseURL + "/luxuryliving/" + id
+    try{
+    const response = await fetch(url, {method: "DELETE"})
+    if (response.status === 200){
+      const index = this.state.car.findIndex(car => car._id === id)
+      const copyCars = [...this.state.car]
+      copyCars.splice(index, 1)
+      this.setState({
+        car: copyCars
+      })
+    }
+  }
+  catch(err){
+    console.log('error: ', err)
+  }
+}
 
 componentDidMount() {
   console.log('...mounting')
