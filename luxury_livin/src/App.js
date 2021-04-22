@@ -8,7 +8,7 @@ import Gif from './Gif'
 import NewForm from './NewForm'
 import NewFormModal from './NewFormModal'
 
-import Modal from './Modal'
+
 import ModalJoke from './ModalJoke'
 
 import Jokes from './Jokes'
@@ -95,6 +95,7 @@ getGif = () => {
       gif: json.data.url
     }), err => console.log(err))
   })
+}
 
 showJokeModal = () => {
   this.setState( { showJoke: true } )
@@ -257,7 +258,7 @@ console.log(this.state.gif)
 
         </GifModal>
 
-        </Modal>
+
         <ModalJoke show={this.state.showJoke} hide={this.hideJokeModal}>
           {(this.state.joke)
           ? <Jokes
