@@ -1,9 +1,18 @@
 import './App.css';
 import React, { Component } from 'react'
+
+import CartModal from './CartModal'
+import GifModal from './GifModal'
+import Cart from './Cart'
+import Gif from './Gif'
+import NewForm from './NewForm'
+import NewFormModal from './NewFormModal'
+
 import Modal from './Modal'
 import ModalJoke from './ModalJoke'
-import Cart from './Cart'
+
 import Jokes from './Jokes'
+
 
 
 console.log(process.env.NODE_ENV)
@@ -21,7 +30,17 @@ class App extends Component {
     this.state = {
       cars: [],
       show: false,
+
+      gifShow: false,
+      newFormShow: false,
+      giphyBaseURL: 'https://api.giphy.com/v1/gifs/random?tag=',
+      tag: 'douchebag',
+      gifApiKey: '&api_key=G8YyTky07ZEq5yELqIiipmrfAbVyqEm4',
+      gifSearchURL: '',
+
+
       showJoke: false,
+
       cartItems: [], //<---NOT FROM DATA BASE!!
       userId: '', //<---NOT USING THIS RIGHT NOW
       baseJokesUrl: 'https://api.chucknorris.io/jokes/random',
@@ -47,12 +66,43 @@ hideModal = () => {
   this.setState( { show: false } )
 }
 
+
+showGifModal = () => {
+  this.setState( { gifShow: true } )
+}
+
+hideGifModal = () => {
+  this.setState( { gifShow: false } )
+}
+
+showNewFormModal = () => {
+  this.setState( { newFormShow: true } )
+}
+
+hideNewFormModal = () => {
+  this.setState( { newFormShow: false } )
+}
+
+getGif = () => {
+
+  this.setState({
+    gifSearchURL: this.state.giphyBaseURL+this.state.tag+this.state.gifApiKey
+  }, ()=> {
+    console.log(this.state.gifSearchURL)
+    fetch(this.state.gifSearchURL).then(res => {
+      return res.json()
+      }).then(json => this.setState({
+      gif: json.data.url
+    }), err => console.log(err))
+  })
+
 showJokeModal = () => {
   this.setState( { showJoke: true } )
 }
 
 hideJokeModal = () => {
   this.setState( { showJoke: false } )
+
 }
 
 addToCart = (item) => {
@@ -80,6 +130,9 @@ removeItem = (item) => {
   })
 }
 
+
+
+
 handleChange = (event) => {
 this.setState({ [event.target.id]: event.target.value })
 }
@@ -99,6 +152,7 @@ handleSubmit = (event) => {
   this.showJokeModal()
 }
 
+
 componentDidMount() {
   console.log('...mounting')
   this.getCars()
@@ -106,11 +160,21 @@ componentDidMount() {
 
 render() {
 
+console.log(this.state.gif)
+
   return (
     <div className="App">
         <nav>
-
-          <h3>Log In</h3>
+          <h3 className='navText' onClick={()=> this.showNewFormModal()}>Create</h3>
+          <h3 className='navText'>Log In</h3>
+          <h3 className='navText' onClick={
+            ()=> {
+              console.log('show gif')
+              console.log('second action!')
+              this.showGifModal()
+              this.getGif()
+            }
+            }>Free Douchebag Tutorials</h3>
           <div id='cartIcon'>
               <h3 onClick={()=>  this.showModal('ID can go here...')}>
                   <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-cart" viewBox="0 0 16 16">
@@ -123,6 +187,12 @@ render() {
 
         <h1 id='mainHeader'>Luxury Living</h1>
         <h1 id='secondaryHeader'>The Life YOU Want</h1>
+
+
+        <NewFormModal show={this.state.newFormShow}>
+            <NewForm hide={this.hideNewFormModal}/>
+        </NewFormModal>
+
         <div>
           <form  onSubmit={this.handleSubmit}>
             <input className="jokeButton" onClick={()=>  this.showJokeModal()}
@@ -132,6 +202,7 @@ render() {
             />
             </form>
         </div>
+
         <div className='itemsContainer'>
         {
           this.state.cars.map(car => {
@@ -168,11 +239,24 @@ render() {
 
         </div>
 
-        <Modal show={this.state.show} hide={this.hideModal}>
+        <CartModal show={this.state.show}>
                 <Cart
                 cartItems={this.state.cartItems}
                 removeItem={this.removeItem}
+                hide={this.hideModal}
                 />
+
+        </CartModal>
+
+        <GifModal show={this.state.gifShow}>
+
+              <Gif
+              getGif={this.getGif}
+              gif={this.state.gif}
+              hide={this.hideGifModal}/>
+
+        </GifModal>
+
         </Modal>
         <ModalJoke show={this.state.showJoke} hide={this.hideJokeModal}>
           {(this.state.joke)
@@ -180,6 +264,7 @@ render() {
           joke={this.state.joke}/>
           : ''
         }
+
 
         </ModalJoke>
 
@@ -191,3 +276,12 @@ render() {
 }
 
 export default App;
+//https://api.giphy.com/v1/gifs/random?tag=douchebag&api_key=G8YyTky07ZEq5yELqIiipmrfAbVyqEm4
+// <Gif
+// giphyBaseURL={this.state.giphyBaseURL}
+// tag={this.state.tag}
+// apiKey={this.state.apiKey}
+// searchURL={this.state.gifSearchURL}
+// hide={this.hideModal}
+//
+// />
