@@ -1,24 +1,23 @@
 import './App.css';
 import React, { Component } from 'react'
-<<<<<<< HEAD
-=======
 
->>>>>>> 50e58947b8fe90c94578885e7628f4b05795cc40
+
+
 import CartModal from './CartModal'
 import GifModal from './GifModal'
 import Cart from './Cart'
 import Gif from './Gif'
 import NewForm from './NewForm'
 import NewFormModal from './NewFormModal'
-<<<<<<< HEAD
-=======
+
+
 
 import Modal from './Modal'
 import ModalJoke from './ModalJoke'
 
 import Jokes from './Jokes'
 
->>>>>>> 50e58947b8fe90c94578885e7628f4b05795cc40
+
 
 
 console.log(process.env.NODE_ENV)
@@ -40,10 +39,9 @@ class App extends Component {
     this.state = {
       cars: [],
       show: false,
-<<<<<<< HEAD
-=======
 
->>>>>>> 50e58947b8fe90c94578885e7628f4b05795cc40
+
+
       gifShow: false,
       newFormShow: false,
       giphyBaseURL: 'https://api.giphy.com/v1/gifs/random?tag=',
@@ -51,12 +49,11 @@ class App extends Component {
       gifApiKey: '&api_key=G8YyTky07ZEq5yELqIiipmrfAbVyqEm4',
       gifSearchURL: '',
 
-<<<<<<< HEAD
-=======
+
 
       showJoke: false,
 
->>>>>>> 50e58947b8fe90c94578885e7628f4b05795cc40
+
       cartItems: [], //<---NOT FROM DATA BASE!!
       userId: '', //<---NOT USING THIS RIGHT NOW
 
@@ -97,10 +94,7 @@ hideModal = () => {
   this.setState( { show: false } )
 }
 
-<<<<<<< HEAD
-=======
 
->>>>>>> 50e58947b8fe90c94578885e7628f4b05795cc40
 showGifModal = () => {
   this.setState( { gifShow: true } )
 }
@@ -111,7 +105,7 @@ hideGifModal = () => {
 
 showNewFormModal = () => {
   this.setState( { newFormShow: true } )
-<<<<<<< HEAD
+
 }
 
 hideNewFormModal = () => {
@@ -130,7 +124,7 @@ getGif = () => {
       gif: json.data.url
     }), err => console.log(err))
   })
-=======
+
 }
 
 hideNewFormModal = () => {
@@ -157,7 +151,7 @@ showJokeModal = () => {
 hideJokeModal = () => {
   this.setState( { showJoke: false } )
 
->>>>>>> 50e58947b8fe90c94578885e7628f4b05795cc40
+
 }
 
 addToCart = (item) => {
@@ -185,8 +179,7 @@ removeItem = (item) => {
 }
 
 
-<<<<<<< HEAD
-=======
+
 
 
 handleChange = (event) => {
@@ -207,7 +200,7 @@ handleSubmit = (event) => {
   })
   this.showJokeModal()
 }
->>>>>>> 50e58947b8fe90c94578885e7628f4b05795cc40
+
 
 
 componentDidMount() {
@@ -246,15 +239,13 @@ console.log(this.state.gif)
         <h1 id='mainHeader'>Luxury Living</h1>
         <h1 id='secondaryHeader'>The Life YOU Want</h1>
 
-<<<<<<< HEAD
-        <NewFormModal show={this.state.newFormShow}>
-            <NewForm hide={this.hideNewFormModal}/>
-        </NewFormModal>
-=======
 
         <NewFormModal show={this.state.newFormShow}>
             <NewForm hide={this.hideNewFormModal}/>
         </NewFormModal>
+
+
+      
 
         <div>
           <form  onSubmit={this.handleSubmit}>
@@ -266,7 +257,7 @@ console.log(this.state.gif)
             </form>
         </div>
 
->>>>>>> 50e58947b8fe90c94578885e7628f4b05795cc40
+
         <div className='itemsContainer'>
         {
           this.state.cars.map(car => {
@@ -302,17 +293,16 @@ console.log(this.state.gif)
         }
 
         </div>
-
+        <div>
         <CartModal show={this.state.show}>
                 <Cart
                 cartItems={this.state.cartItems}
                 removeItem={this.removeItem}
                 hide={this.hideModal}
                 />
-<<<<<<< HEAD
-=======
 
->>>>>>> 50e58947b8fe90c94578885e7628f4b05795cc40
+
+
         </CartModal>
 
         <GifModal show={this.state.gifShow}>
@@ -323,9 +313,7 @@ console.log(this.state.gif)
               hide={this.hideGifModal}/>
 
         </GifModal>
-<<<<<<< HEAD
 
-=======
 
         </Modal>
         <ModalJoke show={this.state.showJoke} hide={this.hideJokeModal}>
@@ -337,7 +325,7 @@ console.log(this.state.gif)
 
 
         </ModalJoke>
->>>>>>> 50e58947b8fe90c94578885e7628f4b05795cc40
+
 
     </div>
   );
