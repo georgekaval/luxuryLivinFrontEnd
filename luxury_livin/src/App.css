@@ -63,6 +63,24 @@ nav {
   /* transform: translate(-50%,-50%); */
 }
 
+.modal-jokes {
+  position:fixed;
+  /* background: rgba(134, 7, 237, .9); */
+  width: 33%;
+  height: 200px;
+  border-radius: 10px;
+  top:40%;
+  right:30%;
+  color: #FF85EA;
+  /* transform: translate(-50%,-50%); */
+}
+
+.jokeButton {
+  color: #FF85EA;
+  background-color: white;
+  font-family: Lobster;
+  font-size: 1.5rem;
+}
 .display-block {
   display: block;
 }
