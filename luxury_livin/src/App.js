@@ -316,7 +316,7 @@ console.log(this.state.gif)
         </GifModal>
 
 
-        </Modal>
+
         <ModalJoke show={this.state.showJoke} hide={this.hideJokeModal}>
           {(this.state.joke)
           ? <Jokes
@@ -329,19 +329,10 @@ console.log(this.state.gif)
 
 
     </div>
-  );
+  
 }
 
 
 }
 
 export default App;
-//https://api.giphy.com/v1/gifs/random?tag=douchebag&api_key=G8YyTky07ZEq5yELqIiipmrfAbVyqEm4
-// <Gif
-// giphyBaseURL={this.state.giphyBaseURL}
-// tag={this.state.tag}
-// apiKey={this.state.apiKey}
-// searchURL={this.state.gifSearchURL}
-// hide={this.hideModal}
-//
-// />
