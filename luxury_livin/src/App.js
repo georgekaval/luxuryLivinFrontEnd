@@ -1,10 +1,11 @@
 import './App.css';
 import React, { Component } from 'react'
-import Modal from './Modal'
-import ModalJoke from './ModalJoke'
+import CartModal from './CartModal'
+import GifModal from './GifModal'
 import Cart from './Cart'
-import Jokes from './Jokes'
-
+import Gif from './Gif'
+import NewForm from './NewForm'
+import NewFormModal from './NewFormModal'
 
 console.log(process.env.NODE_ENV)
 let baseURL = ''
@@ -15,17 +16,26 @@ if (process.env.NODE_ENV === 'development') {
   baseURL = 'heroku URL' // guess I don't need this but I just did it like this bc lesson was like this
 }
 
+
+
+
+
 class App extends Component {
   constructor(props) {
     super(props)
     this.state = {
       cars: [],
       show: false,
-      showJoke: false,
+      gifShow: false,
+      newFormShow: false,
+      giphyBaseURL: 'https://api.giphy.com/v1/gifs/random?tag=',
+      tag: 'douchebag',
+      gifApiKey: '&api_key=G8YyTky07ZEq5yELqIiipmrfAbVyqEm4',
+      gifSearchURL: '',
+
       cartItems: [], //<---NOT FROM DATA BASE!!
       userId: '', //<---NOT USING THIS RIGHT NOW
-      baseJokesUrl: 'https://api.chucknorris.io/jokes/random',
-      searchURL: '',
+
     }
   }
 
@@ -39,6 +49,22 @@ class App extends Component {
   })
   }
 
+
+
+// getCart = async () => {
+//   const url = baseURL + '/cart'
+//
+//   try {
+//     const res = await fetch(url, { method: 'GET' })
+//     const cart = await res.json()
+//     this.setState({
+//       cart: cart
+//     })
+//   } catch(err) {
+//     console.log('Error: ', err)
+//   }
+// }
+
 showModal = () => {
   this.setState( { show: true } )
 }
@@ -47,12 +73,34 @@ hideModal = () => {
   this.setState( { show: false } )
 }
 
-showJokeModal = () => {
-  this.setState( { showJoke: true } )
+showGifModal = () => {
+  this.setState( { gifShow: true } )
 }
 
-hideJokeModal = () => {
-  this.setState( { showJoke: false } )
+hideGifModal = () => {
+  this.setState( { gifShow: false } )
+}
+
+showNewFormModal = () => {
+  this.setState( { newFormShow: true } )
+}
+
+hideNewFormModal = () => {
+  this.setState( { newFormShow: false } )
+}
+
+getGif = () => {
+
+  this.setState({
+    gifSearchURL: this.state.giphyBaseURL+this.state.tag+this.state.gifApiKey
+  }, ()=> {
+    console.log(this.state.gifSearchURL)
+    fetch(this.state.gifSearchURL).then(res => {
+      return res.json()
+      }).then(json => this.setState({
+      gif: json.data.url
+    }), err => console.log(err))
+  })
 }
 
 addToCart = (item) => {
@@ -63,8 +111,7 @@ addToCart = (item) => {
   console.log(this.state.cartItems)
   let cartItems = this.state.cartItems
   this.setState({
-    cartItems: cartItems,
-
+    cartItems: cartItems
   })
   this.showModal()
 }
@@ -80,37 +127,31 @@ removeItem = (item) => {
   })
 }
 
-handleChange = (event) => {
-this.setState({ [event.target.id]: event.target.value })
-}
-handleSubmit = (event) => {
-  event.preventDefault()
-  this.setState({
-    searchURL:this.state.baseJokesUrl
-  }, () => {
-    fetch(this.state.searchURL)
-    .then(response => {
-      return response.json()
-    }).then(json => this.setState({
-      joke: json,
-    }),
-      err => console.log(err))
-  })
-  this.showJokeModal()
-}
+
 
 componentDidMount() {
   console.log('...mounting')
   this.getCars()
 }
 
+
 render() {
+
+console.log(this.state.gif)
 
   return (
     <div className="App">
         <nav>
-
-          <h3>Log In</h3>
+          <h3 className='navText' onClick={()=> this.showNewFormModal()}>Create</h3>
+          <h3 className='navText'>Log In</h3>
+          <h3 className='navText' onClick={
+            ()=> {
+              console.log('show gif')
+              console.log('second action!')
+              this.showGifModal()
+              this.getGif()
+            }
+            }>Free Douchebag Tutorials</h3>
           <div id='cartIcon'>
               <h3 onClick={()=>  this.showModal('ID can go here...')}>
                   <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-cart" viewBox="0 0 16 16">
@@ -123,15 +164,10 @@ render() {
 
         <h1 id='mainHeader'>Luxury Living</h1>
         <h1 id='secondaryHeader'>The Life YOU Want</h1>
-        <div>
-          <form  onSubmit={this.handleSubmit}>
-            <input className="jokeButton" onClick={()=>  this.showJokeModal()}
-              type='submit'
-              value= 'Click here for a Chuch Norris joke!'
-              onChange={this.handleChange}
-            />
-            </form>
-        </div>
+
+        <NewFormModal show={this.state.newFormShow}>
+            <NewForm hide={this.hideNewFormModal}/>
+        </NewFormModal>
         <div className='itemsContainer'>
         {
           this.state.cars.map(car => {
@@ -168,20 +204,23 @@ render() {
 
         </div>
 
-        <Modal show={this.state.show} hide={this.hideModal}>
+        <CartModal show={this.state.show}>
                 <Cart
                 cartItems={this.state.cartItems}
                 removeItem={this.removeItem}
+                hide={this.hideModal}
                 />
-        </Modal>
-        <ModalJoke show={this.state.showJoke} hide={this.hideJokeModal}>
-          {(this.state.joke)
-          ? <Jokes
-          joke={this.state.joke}/>
-          : ''
-        }
+        </CartModal>
 
-        </ModalJoke>
+        <GifModal show={this.state.gifShow}>
+
+              <Gif
+              getGif={this.getGif}
+              gif={this.state.gif}
+              hide={this.hideGifModal}/>
+
+        </GifModal>
+
 
     </div>
   );
@@ -191,3 +230,12 @@ render() {
 }
 
 export default App;
+//https://api.giphy.com/v1/gifs/random?tag=douchebag&api_key=G8YyTky07ZEq5yELqIiipmrfAbVyqEm4
+// <Gif
+// giphyBaseURL={this.state.giphyBaseURL}
+// tag={this.state.tag}
+// apiKey={this.state.apiKey}
+// searchURL={this.state.gifSearchURL}
+// hide={this.hideModal}
+//
+// />
