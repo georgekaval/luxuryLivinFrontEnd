@@ -143,6 +143,7 @@ getGif = () => {
       gif: json.data.url
     }), err => console.log(err))
   })
+}
 
 showJokeModal = () => {
   this.setState( { showJoke: true } )
@@ -245,7 +246,7 @@ console.log(this.state.gif)
         </NewFormModal>
 
 
-      
+
 
         <div>
           <form  onSubmit={this.handleSubmit}>
