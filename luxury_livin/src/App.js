@@ -8,7 +8,7 @@ import Gif from './Gif'
 import NewForm from './NewForm'
 import NewFormModal from './NewFormModal'
 
-import Modal from './Modal'
+
 import ModalJoke from './ModalJoke'
 
 import Jokes from './Jokes'
@@ -92,9 +92,10 @@ getGif = () => {
     fetch(this.state.gifSearchURL).then(res => {
       return res.json()
       }).then(json => this.setState({
-      gif: json.data.url
+      gif: json.data.images.downsized_large.url
     }), err => console.log(err))
   })
+}
 
 showJokeModal = () => {
   this.setState( { showJoke: true } )
@@ -169,8 +170,6 @@ console.log(this.state.gif)
           <h3 className='navText'>Log In</h3>
           <h3 className='navText' onClick={
             ()=> {
-              console.log('show gif')
-              console.log('second action!')
               this.showGifModal()
               this.getGif()
             }
@@ -257,7 +256,7 @@ console.log(this.state.gif)
 
         </GifModal>
 
-        </Modal>
+
         <ModalJoke show={this.state.showJoke} hide={this.hideJokeModal}>
           {(this.state.joke)
           ? <Jokes
@@ -276,12 +275,3 @@ console.log(this.state.gif)
 }
 
 export default App;
-//https://api.giphy.com/v1/gifs/random?tag=douchebag&api_key=G8YyTky07ZEq5yELqIiipmrfAbVyqEm4
-// <Gif
-// giphyBaseURL={this.state.giphyBaseURL}
-// tag={this.state.tag}
-// apiKey={this.state.apiKey}
-// searchURL={this.state.gifSearchURL}
-// hide={this.hideModal}
-//
-// />
