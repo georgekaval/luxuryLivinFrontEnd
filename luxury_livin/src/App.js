@@ -5,6 +5,7 @@ import ModalJoke from './ModalJoke'
 import Cart from './Cart'
 import Jokes from './Jokes'
 
+
 console.log(process.env.NODE_ENV)
 let baseURL = ''
 
@@ -23,7 +24,8 @@ class App extends Component {
       showJoke: false,
       cartItems: [], //<---NOT FROM DATA BASE!!
       userId: '', //<---NOT USING THIS RIGHT NOW
-      baseUrl: 'https://api.chucknorris.io/jokes/random',
+      baseJokesUrl: 'https://api.chucknorris.io/jokes/random',
+      searchURL: '',
     }
   }
 
@@ -36,22 +38,6 @@ class App extends Component {
     })
   })
   }
-
-
-
-// getCart = async () => {
-//   const url = baseURL + '/cart'
-//
-//   try {
-//     const res = await fetch(url, { method: 'GET' })
-//     const cart = await res.json()
-//     this.setState({
-//       cart: cart
-//     })
-//   } catch(err) {
-//     console.log('Error: ', err)
-//   }
-// }
 
 showModal = () => {
   this.setState( { show: true } )
@@ -103,7 +89,7 @@ this.setState({ [event.target.id]: event.target.value })
 handleSubmit = (event) => {
   event.preventDefault()
   this.setState({
-    searchURL:this.state.baseURL
+    searchURL:this.state.baseJokesUrl
   }, () => {
     fetch(this.state.searchURL)
     .then(response => {
@@ -120,7 +106,6 @@ componentDidMount() {
   console.log('...mounting')
   this.getCars()
 }
-
 
 render() {
 
@@ -143,10 +128,10 @@ render() {
         <h1 id='mainHeader'>Luxury Living</h1>
         <h1 id='secondaryHeader'>The Life YOU Want</h1>
         <div>
-          <form onSubmit={this.handleSubmit}>
-            <input onClick={()=>  this.showJokeModal()}
+          <form  onSubmit={this.handleSubmit}>
+            <input className="jokeButton" onClick={()=>  this.showJokeModal()}
               type='submit'
-              value= 'Hear a joke while you browse!'
+              value= 'Click here for a Chuch Norris joke!'
               onChange={this.handleChange}
             />
             </form>
@@ -194,9 +179,12 @@ render() {
                 />
         </Modal>
         <ModalJoke show={this.state.showJoke} hide={this.hideJokeModal}>
-          <Jokes
-          joke={this.state.joke}
-          />
+          {(this.state.joke)
+          ? <Jokes
+          joke={this.state.joke}/>
+          : ''
+        }
+
         </ModalJoke>
 
     </div>
