@@ -52,7 +52,7 @@ nav {
   background: rgba(0, 0, 0, 0.1);
 } */
 
-.modal-main {
+.modal-cart {
   position:fixed;
   /* background: rgba(134, 7, 237, .9); */
   width: 33%;
@@ -61,6 +61,24 @@ nav {
   top:10%;
   right:5%;
   /* transform: translate(-50%,-50%); */
+}
+
+.modal-gif {
+  position:fixed;
+  width: 33%;
+  height: 200px;
+  border-radius: 10px;
+  top:10%;
+  left:5%;
+}
+
+.modal-newForm {
+  position:fixed;
+  width: 33%;
+  height: 200px;
+  border-radius: 10px;
+  top:60%;
+  right:5%;
 }
 
 .display-block {
@@ -101,7 +119,7 @@ nav {
 }
 
 
-.cartViewContainer {
+.cartViewContainer, .formContainer {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -171,5 +189,11 @@ nav {
 
 #cartIcon:hover {
   background: rgba(255, 255, 255, .2);
+  cursor: pointer;
+}
+
+.navText:hover {
+  color: #5834eb;
+  opacity: 60%;
   cursor: pointer;
 }
