@@ -153,6 +153,33 @@ handleSubmit = (event) => {
   this.showJokeModal()
 }
 
+// Debbie's code
+
+addCar = (newCar) => {
+    const copyCars = [...this.state.cars]
+    copyCars.push(newCar)
+    this.setState({
+      cars: copyCars,
+    })
+  }
+  // USING ASYNC/AWAIT
+  deleteCar = async (id)=> {
+    const url = baseURL + "/luxuryliving/" + id
+    try{
+    const response = await fetch(url, {method: "DELETE"})
+    if (response.status === 200){
+      const index = this.state.cars.findIndex(car => car._id === id)
+      const copyCars = [...this.state.cars]
+      copyCars.splice(index, 1)
+      this.setState({
+        cars: copyCars
+      })
+    }
+  }
+  catch(err){
+    console.log('error: ', err)
+  }
+}
 
 componentDidMount() {
   console.log('...mounting')
@@ -174,12 +201,19 @@ console.log(this.state.gif)
               this.getGif()
             }
             }>Free Douchebag Tutorials</h3>
+            <form  onSubmit={this.handleSubmit}>
+            <h3><input className="jokeButton" onClick={()=>  this.showJokeModal()}
+              type='submit'
+              value= 'Chuck Norris Joke!'
+              onChange={this.handleChange}
+            /></h3>
+            </form>
           <div id='cartIcon'>
               <h3 onClick={()=>  this.showModal('ID can go here...')}>
                   <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-cart" viewBox="0 0 16 16">
                       <path d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5zM3.102 4l1.313 7h8.17l1.313-7H3.102zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
                   </svg>
-              <span>{this.state.cartItems.length}</span>
+              <span className='navText'>{this.state.cartItems.length}</span>
               </h3>
           </div>
         </nav>
@@ -189,18 +223,14 @@ console.log(this.state.gif)
 
 
         <NewFormModal show={this.state.newFormShow}>
-            <NewForm hide={this.hideNewFormModal}/>
+            <NewForm
+              hide={this.hideNewFormModal}
+              baseURL={baseURL}
+              addCar={this.addCar}
+              />
         </NewFormModal>
 
-        <div>
-          <form  onSubmit={this.handleSubmit}>
-            <input className="jokeButton" onClick={()=>  this.showJokeModal()}
-              type='submit'
-              value= 'Click here for a Chuch Norris joke!'
-              onChange={this.handleChange}
-            />
-            </form>
-        </div>
+    
 
         <div className='itemsContainer'>
         {
@@ -224,7 +254,7 @@ console.log(this.state.gif)
                   <table className='itemTable'>
 
                       <tr>
-                          <td id='XremoveBtn'>x</td>
+                          <td id='XremoveBtn' onClick={()=> this.deleteCar(car._id)}>x</td>
                           <td><button id='editBtn'>Edit</button></td>
                           <td><button id='addToCartBtn' onClick={()=> this.addToCart(item)}>Add To Cart</button></td>
                       </tr>
