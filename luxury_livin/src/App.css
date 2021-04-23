@@ -83,8 +83,8 @@ nav {
   width: 33%;
   height: 200px;
   border-radius: 10px;
-  top:60%;
-  right:5%;
+  top:10%;
+  left:5%;
 }
 
 
@@ -148,13 +148,23 @@ nav {
   height: 70%;
 }
 
-.cartViewContainer, .formContainer {
+.cartViewContainer {
   display: flex;
   flex-direction: column;
   align-items: center;
   padding: 1.3rem;
   background: rgba(255, 255, 255, .6);
   border: solid .5px #fdf200;
+  border-radius: 10px;
+}
+
+.formContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 1.3rem;
+  background: rgba(255, 255, 255, .7);
+  border: solid .5px #5834eb;
   border-radius: 10px;
 }
 
@@ -172,12 +182,26 @@ nav {
   border-radius: 10px;
 }
 
+.newForm > label {
+  color: #5834eb;
+  font-family: Yanone Kaffeesatz;
+}
 .newForm > input[type=text] {
   width: 75%;
   color: black;
   padding: 14px 20px;
   margin: 8px 0;
-  border: solid .5px #fdf200;
+  border: solid .5px #5834eb;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.newForm > input[type=number] {
+  width: 75%;
+  color: black;
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: solid .5px #5834eb;
   border-radius: 4px;
   cursor: pointer;
 }
@@ -233,7 +257,7 @@ nav {
   cursor: pointer;
 }
 
-#addToCartBtn, #editBtn, #likeButton {
+#addToCartBtn, #likeButton {
   margin-top: .2rem;
   background: none;
   color: #5834eb;
@@ -251,7 +275,7 @@ nav {
   cursor: pointer;
 }
 
-#editBtn:hover {
+#likeButton:hover {
   transform: scale(1.2, 1.2);
   transition: transform 330ms ease-in-out;
   background-color: #5834eb;

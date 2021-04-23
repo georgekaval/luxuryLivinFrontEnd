@@ -285,9 +285,9 @@ class App extends Component {
                     <tbody>
                       <tr>
                         <td id='XremoveBtn' onClick={()=> this.deleteCar(car._id)}>x</td>
-                        <td><button id='editBtn'>Edit</button></td>
-                        <td>Likes: {car.likes}</td>
-                        <td> <button id="likeButton" onClick={() =>this.addLike(car)}>like</button></td>
+
+                        
+                        <td> <button id="likeButton" onClick={() =>this.addLike(car)}>Like</button><span> {car.likes}</span></td>
                         <td><button id='addToCartBtn' onClick={()=> this.addToCart(item)}>Add To Cart</button></td>
                       </tr>
                     </tbody>
