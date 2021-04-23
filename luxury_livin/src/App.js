@@ -230,7 +230,7 @@ console.log(this.state.gif)
               />
         </NewFormModal>
 
-    
+
 
         <div className='itemsContainer'>
         {
@@ -242,22 +242,25 @@ console.log(this.state.gif)
 
             return(
               <>
-              <div className='itemDiv'>
+              <div key={car._id} className='itemDiv'>
                   <table className='itemTable'>
-                  <tr>
-                      <td>{car.year}</td>
-                      <td>{car.make} {car.model}</td>
-                      <td>${car.price}</td>
-                  </tr>
+                    <tbody>
+                      <tr>
+                          <td>{car.year}</td>
+                          <td>{car.make} {car.model}</td>
+                          <td>${car.price}</td>
+                      </tr>
+                    </tbody>
                   </table>
                   <img className='itemImg'src={car.img}/>
                   <table className='itemTable'>
-
+                    <tbody>
                       <tr>
                           <td id='XremoveBtn' onClick={()=> this.deleteCar(car._id)}>x</td>
                           <td><button id='editBtn'>Edit</button></td>
                           <td><button id='addToCartBtn' onClick={()=> this.addToCart(item)}>Add To Cart</button></td>
                       </tr>
+                    </tbody>
                   </table>
 
               </div>
@@ -287,10 +290,11 @@ console.log(this.state.gif)
         </GifModal>
 
 
-        <ModalJoke show={this.state.showJoke} hide={this.hideJokeModal}>
+        <ModalJoke show={this.state.showJoke} >
           {(this.state.joke)
           ? <Jokes
-          joke={this.state.joke}/>
+          joke={this.state.joke}
+          hide={this.hideJokeModal}/>
           : ''
         }
 
