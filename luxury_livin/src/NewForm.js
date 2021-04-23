@@ -5,7 +5,10 @@ export default class NewForm extends Component {
         this.state = {
             make: '',
             model: '',
-            // year: ''
+            year: '',
+            img: '',
+            price: '',
+
         }
         this.handleChange = this.handleChange.bind(this)
         this.handleSubmit = this.handleSubmit.bind(this)
@@ -16,40 +19,43 @@ export default class NewForm extends Component {
     }
     handleSubmit (event) {
         event.preventDefault()
-        console.log(this.props.baseURL)
+        // fetch
         fetch(this.props.baseURL + '/luxuryliving', {
             method: 'POST',
-            body: JSON.stringify({make: this.state.make}),
+            body: JSON.stringify({make: this.state.make}, {model: this.state.model}, {year: this.state.year}, {img: this.state.img}, {price: this.state.price}),
             headers: {
                 'Content-Type': 'application/json'
             }
         }).then( res => {
             return res.json()
         }).then( data => {
-            console.log(data)
             this.props.addCar(data)
             this.setState({
                 make: '',
-                model: ''
+                model: '',
+                year: '',
+                img: '',
+                price: '',
+
             })
         }).catch (error => console.error({'Error': error}))
     }
     render () {
         console.log(this.state.make)
         return (
-          <div className='modal-newForm'>
-          <button id='closeBtn' type="button" onClick={this.props.hide}>X</button>
-            <div className='formContainer'>
-                  <form className='newForm' onSubmit={ (event) => this.handleSubmit(event) }>
-                      <label htmlFor="make">Make: </label>
-                      <input type="text" id="make" name="make" onChange={ (event) => this.handleChange(event) } value={ this.state.make } />
-                      <label htmlFor="model">Model: </label>
-                      <input type="text" id="model" name="model" onChange={ (event) => this.handleChange(event) } value={ this.state.model } />
-                      <input type="submit" value="Add a new car" />
-                  </form>
-
-            </div>
-          </div>
+           <form onSubmit={ (event) => this.handleSubmit(event) }>
+              <label htmlFor="make">Make: </label>
+              <input type="text" id="make" name="make" onChange={ (event) => this.handleChange(event) } value={ this.state.make } />
+              <label htmlFor="model">Model: </label>
+              <input type="text" id="model" name="model" onChange={ (event) => this.handleChange(event) } value={ this.state.model } />
+              <label htmlFor="year">Year: </label>
+              <input type="text" id="year" name="year" onChange={ (event) => this.handleChange(event) } value={ this.state.year } />
+              <label htmlFor="img">Img: </label>
+              <input type="text" id="img" name="img" onChange={ (event) => this.handleChange(event) } value={ this.state.img } />
+              <label htmlFor="price">Price: </label>
+              <input type="text" id="price" name="price" onChange={ (event) => this.handleChange(event) } value={ this.state.price } />
+              <input type="submit" value="Add a new car" />
+           </form>
         )
     }
 }
