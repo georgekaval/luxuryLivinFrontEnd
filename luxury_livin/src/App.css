@@ -166,11 +166,37 @@ nav {
   display: flex;
   flex-direction: column;
   align-items: center;
-
   padding: 1.3rem;
-
   border: solid 1rem #00feca;
   border-radius: 10px;
+}
+
+.newForm > input[type=text] {
+  width: 75%;
+  color: black;
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: solid .5px #fdf200;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.newForm > input[type=submit] {
+  margin-top: .2rem;
+  background: none;
+  color: #5834eb;
+  border: solid 1px #5834eb;
+  border-radius: 2px;
+}
+
+.newForm > input[type=submit]:hover {
+  transform: scale(1.2, 1.2);
+  transition: transform 330ms ease-in-out;
+  background-color: #5834eb;
+  border-color: white;
+  color: white;
+  opacity: 50%;
+  cursor: pointer;
 }
 
 #gifImg {

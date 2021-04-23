@@ -38,15 +38,16 @@ export default class NewForm extends Component {
         console.log(this.state.make)
         return (
           <div className='modal-newForm'>
+          <button id='closeBtn' type="button" onClick={this.props.hide}>X</button>
             <div className='formContainer'>
-               <form onSubmit={ (event) => this.handleSubmit(event) }>
-                  <label htmlFor="make">Make: </label>
-                  <input type="text" id="make" name="make" onChange={ (event) => this.handleChange(event) } value={ this.state.make } />
-                  <label htmlFor="model">Model: </label>
-                  <input type="text" id="model" name="model" onChange={ (event) => this.handleChange(event) } value={ this.state.model } />
-                  <input type="submit" value="Add a new car" />
-               </form>
-               <button id='closeBtn' type="button" onClick={this.props.hide}>X</button>
+                  <form className='newForm' onSubmit={ (event) => this.handleSubmit(event) }>
+                      <label htmlFor="make">Make: </label>
+                      <input type="text" id="make" name="make" onChange={ (event) => this.handleChange(event) } value={ this.state.make } />
+                      <label htmlFor="model">Model: </label>
+                      <input type="text" id="model" name="model" onChange={ (event) => this.handleChange(event) } value={ this.state.model } />
+                      <input type="submit" value="Add a new car" />
+                  </form>
+
             </div>
           </div>
         )
