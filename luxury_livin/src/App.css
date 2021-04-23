@@ -53,6 +53,7 @@ nav {
 }
 
 .modal-cart {
+  animation: fadeIn 1s;
   position:fixed;
   /* background: rgba(134, 7, 237, .9); */
   width: 33%;
@@ -97,10 +98,12 @@ nav {
 }
 
 .jokeButton {
-  color: #FF85EA;
-  background-color: white;
-  font-family: Lobster;
-  font-size: 1.5rem;
+  color: #f5ae62;
+  font-family: Yanone Kaffeesatz;
+  border: none;
+  background: none;
+  font-size: 1.2rem;
+  font-weight: bold;
 }
 
 .display-block {
@@ -201,6 +204,8 @@ nav {
 }
 
 #addToCartBtn:hover {
+  transform: scale(1.2, 1.2);
+  transition: transform 330ms ease-in-out;
   background-color: #5834eb;
   border-color: white;
   color: white;
@@ -217,18 +222,31 @@ nav {
   cursor: pointer;
 }
 
-#cartIcon {
-  border-radius: 100%;
-}
-
 #cartIcon:hover {
-  background: rgba(255, 255, 255, .2);
+  transform: scale(1.33, 1.33);
+  transition: transform 330ms ease-in-out;
   cursor: pointer;
 }
 
+.navText, svg {
+  color: #f5ae62
+}
 
 .navText:hover {
-  color: #5834eb;
-  opacity: 60%;
+  transform: scale(1.33, 1.33);
+  transition: transform 330ms ease-in-out;
+  color: #f5ae62;
   cursor: pointer;
+}
+
+.jokeButton:hover {
+  transform: scale(1.33, 1.33);
+  transition: transform 330ms ease-in-out;
+  color: #f5ae62;
+  cursor: pointer;
+}
+
+@keyframes fadeIn {
+  0% {opacity:0;}
+  100% {opacity:1;}
 }
