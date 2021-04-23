@@ -9,7 +9,7 @@ function ModalJoke(props) {
 
     <div className={toggleClass}>
 
-     <section className="modal-main">
+     <section className="modal-jokes">
           {props.children}
        <button id='closeBtn' type="button" onClick={props.hide}>
          X

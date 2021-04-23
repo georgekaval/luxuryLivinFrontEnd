@@ -11,6 +11,7 @@ let prices = [0]
 
   return(
     <>
+    <div className='modal-cart'>
     <div className='cartViewContainer'>
       <table>
         <tbody>
@@ -34,6 +35,10 @@ let prices = [0]
         </tr>
         </tbody>
       </table>
+    </div>
+    <button id='closeBtn' type="button" onClick={props.hide}>
+      X
+    </button>
     </div>
     </>
     )
