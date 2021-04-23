@@ -22,7 +22,15 @@ export default class NewForm extends Component {
         // fetch
         fetch(this.props.baseURL + '/luxuryliving', {
             method: 'POST',
-            body: JSON.stringify({make: this.state.make}, {model: this.state.model}, {year: this.state.year}, {img: this.state.img}, {price: this.state.price}),
+
+            body: JSON.stringify({
+              make: this.state.make,
+              model: this.state.model,
+              year: this.state.year,
+              img: this.state.img,
+              price: this.state.price
+            }),
+
             headers: {
                 'Content-Type': 'application/json'
             }
@@ -43,19 +51,34 @@ export default class NewForm extends Component {
     render () {
         console.log(this.state.make)
         return (
-           <form onSubmit={ (event) => this.handleSubmit(event) }>
-              <label htmlFor="make">Make: </label>
-              <input type="text" id="make" name="make" onChange={ (event) => this.handleChange(event) } value={ this.state.make } />
-              <label htmlFor="model">Model: </label>
-              <input type="text" id="model" name="model" onChange={ (event) => this.handleChange(event) } value={ this.state.model } />
-              <label htmlFor="year">Year: </label>
-              <input type="text" id="year" name="year" onChange={ (event) => this.handleChange(event) } value={ this.state.year } />
-              <label htmlFor="img">Img: </label>
-              <input type="text" id="img" name="img" onChange={ (event) => this.handleChange(event) } value={ this.state.img } />
-              <label htmlFor="price">Price: </label>
-              <input type="text" id="price" name="price" onChange={ (event) => this.handleChange(event) } value={ this.state.price } />
-              <input type="submit" value="Add a new car" />
-           </form>
+
+          <div className='modal-newForm'>
+          <button id='closeBtn' type="button" onClick={this.props.hide}>X</button>
+            <div className='formContainer'>
+                  <form className='newForm' onSubmit={ (event) => this.handleSubmit(event) }>
+
+                      <label htmlFor="make">Make: </label>
+                      <input type="text" id="make" name="make" onChange={ (event) => this.handleChange(event) } value={ this.state.make } />
+
+                      <label htmlFor="model">Model: </label>
+                      <input type="text" id="model" name="model" onChange={ (event) => this.handleChange(event) } value={ this.state.model } />
+
+                      <label htmlFor="year">Year: </label>
+                      <input type="number" id="year" name="year" onChange={ (event) => this.handleChange(event) } value={ this.state.year } />
+
+                      <label htmlFor="img">Img: </label>
+                      <input type="text" id="img" name="img" onChange={ (event) => this.handleChange(event) } value={ this.state.img } />
+
+                      <label htmlFor="price">Price: </label>
+                      <input type="number" id="price" name="price" onChange={ (event) => this.handleChange(event) } value={ this.state.price } />
+
+                      <input type="submit" value="Add a new car" />
+
+                  </form>
+
+            </div>
+          </div>
+
         )
     }
 }
