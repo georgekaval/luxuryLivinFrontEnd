@@ -4,11 +4,13 @@ function Jokes (props) {
   console.log(props)
   const joke = props.joke
   return(
-    <>
-      <h3>
-        {joke.value}
-      </h3>
-    </>
+      <div className='modalImg' onClick={props.hide}>
+          <div className='jokeContainer'>
+            <h3>
+              "{joke.value}"
+            </h3>
+          </div>
+      </div>
   )
 }
 export default Jokes

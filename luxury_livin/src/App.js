@@ -1,12 +1,16 @@
 import './App.css';
 import React, { Component } from 'react'
+
 import CartModal from './CartModal'
 import GifModal from './GifModal'
 import Cart from './Cart'
 import Gif from './Gif'
 import NewForm from './NewForm'
 import NewFormModal from './NewFormModal'
+
+
 import ModalJoke from './ModalJoke'
+
 import Jokes from './Jokes'
 
 
@@ -26,13 +30,17 @@ class App extends Component {
     this.state = {
       cars: [],
       show: false,
+
       gifShow: false,
       newFormShow: false,
       giphyBaseURL: 'https://api.giphy.com/v1/gifs/random?tag=',
       tag: 'douchebag',
       gifApiKey: '&api_key=G8YyTky07ZEq5yELqIiipmrfAbVyqEm4',
       gifSearchURL: '',
+
+
       showJoke: false,
+
       cartItems: [], //<---NOT FROM DATA BASE!!
       userId: '', //<---NOT USING THIS RIGHT NOW
       baseJokesUrl: 'https://api.chucknorris.io/jokes/random',
@@ -84,10 +92,11 @@ class App extends Component {
       fetch(this.state.gifSearchURL).then(res => {
         return res.json()
         }).then(json => this.setState({
-        gif: json.data.url
+        gif: json.data.images.downsized_large.url
       }), err => console.log(err))
     })
   }
+
   showJokeModal = () => {
     this.setState( { showJoke: true } )
   }
@@ -108,7 +117,68 @@ class App extends Component {
       cartItems: cartItems,
 
     })
-    this.showModal()
+      this.showModal()
+  }
+
+  removeItem = (item) => {
+    console.log('removeItem() fired off...')
+    console.log(item.item, item.price)
+    item.item = 'REMOVED'
+    item.price = 0
+    let cartItems = this.state.cartItems
+    this.setState({
+      cartItems: cartItems
+    })
+  }
+
+
+
+
+  handleChange = (event) => {
+  this.setState({ [event.target.id]: event.target.value })
+  }
+  handleSubmit = (event) => {
+    event.preventDefault()
+    this.setState({
+      searchURL:this.state.baseJokesUrl
+    }, () => {
+      fetch(this.state.searchURL)
+      .then(response => {
+        return response.json()
+      }).then(json => this.setState({
+        joke: json,
+      }),
+        err => console.log(err))
+    })
+    this.showJokeModal()
+  }
+
+// Debbie's code
+
+  addCar = (newCar) => {
+      const copyCars = [...this.state.cars]
+      copyCars.push(newCar)
+      this.setState({
+        cars: copyCars,
+      })
+    }
+  // USING ASYNC/AWAIT
+  deleteCar = async (id)=> {
+    const url = baseURL + "/luxuryliving/" + id
+    try{
+    const response = await fetch(url, {method: "DELETE"})
+    if (response.status === 200){
+      const index = this.state.cars.findIndex(car => car._id === id)
+      const copyCars = [...this.state.cars]
+      copyCars.splice(index, 1)
+      this.setState({
+        cars: copyCars
+        })
+      }
+    }
+    catch(err){
+      console.log('error: ', err)
+    }
   }
 
   addLike = async (car) => {
@@ -139,38 +209,6 @@ class App extends Component {
     }
   }
 
-  removeItem = (item) => {
-    console.log('removeItem() fired off...')
-    console.log(item.item, item.price)
-    item.item = 'REMOVED'
-    item.price = 0
-    let cartItems = this.state.cartItems
-    this.setState({
-      cartItems: cartItems
-    })
-  }
-
-  handleChange = (event) => {
-  this.setState({ [event.target.id]: event.target.value })
-  }
-
-  handleSubmit = (event) => {
-    event.preventDefault()
-    this.setState({
-      searchURL:this.state.baseJokesUrl
-    }, () => {
-      fetch(this.state.searchURL)
-      .then(response => {
-        return response.json()
-      }).then(json => this.setState({
-        joke: json,
-      }),
-        err => console.log(err))
-    })
-    this.showJokeModal()
-  }
-
-
   componentDidMount() {
     console.log('...mounting')
     this.getCars()
@@ -187,18 +225,23 @@ class App extends Component {
             <h3 className='navText'>Log In</h3>
             <h3 className='navText' onClick={
               ()=> {
-                console.log('show gif')
-                console.log('second action!')
                 this.showGifModal()
                 this.getGif()
               }
               }>Free Douchebag Tutorials</h3>
+              <form  onSubmit={this.handleSubmit}>
+              <h3><input className="jokeButton" onClick={()=>  this.showJokeModal()}
+                  type='submit'
+                  value= 'Chuck Norris Joke!'
+                  onChange={this.handleChange}
+                /></h3>
+                </form>
             <div id='cartIcon'>
                 <h3 onClick={()=>  this.showModal('ID can go here...')}>
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-cart" viewBox="0 0 16 16">
                         <path d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5zM3.102 4l1.313 7h8.17l1.313-7H3.102zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
                     </svg>
-                <span>{this.state.cartItems.length}</span>
+                <span className='navText'>{this.state.cartItems.length}</span>
                 </h3>
             </div>
           </nav>
@@ -208,18 +251,14 @@ class App extends Component {
 
 
           <NewFormModal show={this.state.newFormShow}>
-              <NewForm hide={this.hideNewFormModal}/>
+              <NewForm
+               hide={this.hideNewFormModal}
+               baseURL={baseURL}
+               addCar={this.addCar}
+               />
           </NewFormModal>
 
-          <div>
-            <form  onSubmit={this.handleSubmit}>
-              <input className="jokeButton" onClick={()=>  this.showJokeModal()}
-                type='submit'
-                value= 'Click here for a Chuck Norris joke!'
-                onChange={this.handleChange}
-              />
-              </form>
-          </div>
+
 
           <div className='itemsContainer'>
           {
@@ -227,33 +266,32 @@ class App extends Component {
               const item = {
                 item: car.year + ' ' + car.make + ' ' + car.model,
                 price: car.price,
-
               }
 
               return(
                 <>
-                <div className='itemDiv'>
-                    <table className='itemTable'>
+                <div key={car._id} className='itemDiv'>
+                  <table className='itemTable'>
                     <tbody>
-                    <tr key={car._id}>
+                      <tr>
                         <td>{car.year}</td>
                         <td>{car.make} {car.model}</td>
                         <td>${car.price}</td>
-                    </tr>
+                      </tr>
                     </tbody>
-                    </table>
-                    <img className='itemImg'src={car.img}/>
-                    <table className='itemTable'>
-                      <tbody>
-                        <tr>
-                            <td id='XremoveBtn'>x</td>
-                            <td><button id='editBtn'>Edit</button></td>
-                            <td>Likes: {car.likes}</td>
-                            <td> <button id="likeButton" onClick={() =>this.addLike(car)}>like</button></td>
-                            <td><button id='addToCartBtn' onClick={()=> this.addToCart(item)}>Add To Cart</button></td>
-                        </tr>
-                        </tbody>
-                    </table>
+                  </table>
+                  <img className='itemImg'src={car.img}/>
+                  <table className='itemTable'>
+                    <tbody>
+                      <tr>
+                        <td id='XremoveBtn' onClick={()=> this.deleteCar(car._id)}>x</td>
+                        <td><button id='editBtn'>Edit</button></td>
+                        <td>Likes: {car.likes}</td>
+                        <td> <button id="likeButton" onClick={() =>this.addLike(car)}>like</button></td>
+                        <td><button id='addToCartBtn' onClick={()=> this.addToCart(item)}>Add To Cart</button></td>
+                      </tr>
+                    </tbody>
+                  </table>
 
                 </div>
                 </>
@@ -264,30 +302,39 @@ class App extends Component {
           </div>
 
           <CartModal show={this.state.show}>
-                  <Cart
-                  cartItems={this.state.cartItems}
-                  removeItem={this.removeItem}
-                  hide={this.hideModal}
-                  />
+            <Cart
+              cartItems={this.state.cartItems}
+              removeItem={this.removeItem}
+              hide={this.hideModal}
+              />
 
           </CartModal>
 
           <GifModal show={this.state.gifShow}>
-                <Gif
-                getGif={this.getGif}
-                gif={this.state.gif}
-                hide={this.hideGifModal}/>
+
+            <Gif
+              getGif={this.getGif}
+              gif={this.state.gif}
+              hide={this.hideGifModal}/>
           </GifModal>
-          <ModalJoke show={this.state.showJoke} hide={this.hideJokeModal}>
-            {(this.state.joke)
-            ? <Jokes
-            joke={this.state.joke}/>
-            : ''
-          }
-          </ModalJoke>
+
+
+          <ModalJoke show={this.state.showJoke} >
+              {(this.state.joke)
+              ? <Jokes
+              joke={this.state.joke}
+              hide={this.hideJokeModal}/>
+              : ''
+            }
+
+
+            </ModalJoke>
+
       </div>
     );
   }
+
+
 }
 
 export default App;
