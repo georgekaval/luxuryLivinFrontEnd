@@ -38,7 +38,7 @@ export default class NewForm extends Component {
         console.log(this.state.make)
         return (
           <div className='modal-newForm'>
-            <div className='.formContainer'>
+            <div className='formContainer'>
                <form onSubmit={ (event) => this.handleSubmit(event) }>
                   <label htmlFor="make">Make: </label>
                   <input type="text" id="make" name="make" onChange={ (event) => this.handleChange(event) } value={ this.state.make } />

@@ -8,15 +8,11 @@ function ModalJoke(props) {
   return (
 
     <div className={toggleClass}>
-
-     <section className="modal-jokes">
-          {props.children}
-       <button id='closeBtn' type="button" onClick={props.hide}>
-         X
-       </button>
-
-     </section>
-
+      <div className='modal'>
+         <section className="modal-jokes">
+              {props.children}
+          </section>
+      </div>
    </div>
 
   )
