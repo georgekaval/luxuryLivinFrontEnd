@@ -8,6 +8,7 @@ export default class NewForm extends Component {
             year: '',
             img: '',
             price: '',
+
         }
         this.handleChange = this.handleChange.bind(this)
         this.handleSubmit = this.handleSubmit.bind(this)
@@ -18,9 +19,10 @@ export default class NewForm extends Component {
     }
     handleSubmit (event) {
         event.preventDefault()
-        console.log(this.props.baseURL)
+        // fetch
         fetch(this.props.baseURL + '/luxuryliving', {
             method: 'POST',
+
             body: JSON.stringify({
               make: this.state.make,
               model: this.state.model,
@@ -28,13 +30,13 @@ export default class NewForm extends Component {
               img: this.state.img,
               price: this.state.price
             }),
+
             headers: {
                 'Content-Type': 'application/json'
             }
         }).then( res => {
             return res.json()
         }).then( data => {
-            console.log(data)
             this.props.addCar(data)
             this.setState({
                 make: '',
@@ -42,12 +44,14 @@ export default class NewForm extends Component {
                 year: '',
                 img: '',
                 price: '',
+
             })
         }).catch (error => console.error({'Error': error}))
     }
     render () {
         console.log(this.state.make)
         return (
+
           <div className='modal-newForm'>
           <button id='closeBtn' type="button" onClick={this.props.hide}>X</button>
             <div className='formContainer'>
@@ -74,6 +78,7 @@ export default class NewForm extends Component {
 
             </div>
           </div>
+
         )
     }
 }
