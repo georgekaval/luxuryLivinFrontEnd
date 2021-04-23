@@ -1,6 +1,6 @@
 # luxurylivin
 
-![Wireframe](Wireframe Luxury Living.png)
+![Wireframe](WireframeLuxuryLiving.png)
 
 [View Backend Repo](https://github.com/victortwu/back-end-luxury-living)
 
