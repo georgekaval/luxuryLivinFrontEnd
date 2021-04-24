@@ -27,6 +27,7 @@ nav {
 }
 
 #mainHeader {
+  animation: fadeIn 4s;
   padding-top: 0rem;
   text-align: center;
   font-family: Lobster;
@@ -35,6 +36,7 @@ nav {
 }
 
 #secondaryHeader {
+  animation: fadeIn 6s;
   text-align: center;
   font-family: Yanone Kaffeesatz;
   color: white;
@@ -43,16 +45,17 @@ nav {
 
 /* MODAL classes ======== */
 
-/* .modal {
+.modal {
   position: fixed;
   top: 0;
   left: 0;
   width:100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.1);
-} */
+  background: rgba(0, 0, 0, 0.7);
+}
 
 .modal-cart {
+  animation: fadeIn 1s;
   position:fixed;
   /* background: rgba(134, 7, 237, .9); */
   width: 33%;
@@ -63,47 +66,52 @@ nav {
   /* transform: translate(-50%,-50%); */
 }
 
-<<<<<<< HEAD
-.modal-gif {
-=======
 
 .modal-gif {
+  position:fixed;
+  width: 33%;
+  height: 200px;
+  border-radius: 10px;
+  top:50%;
+  right:33%;
+  transform: translate(-50%,-50%);
+}
+
+.modal-newForm {
+  animation: fadeIn 1s;
   position:fixed;
   width: 33%;
   height: 200px;
   border-radius: 10px;
   top:10%;
   left:5%;
-}
-
-.modal-newForm {
-  position:fixed;
-  width: 33%;
-  height: 200px;
-  border-radius: 10px;
-  top:60%;
-  right:5%;
 }
 
 
 .modal-jokes {
->>>>>>> 50e58947b8fe90c94578885e7628f4b05795cc40
+<<<<<<< HEAD
+=======
+  animation: fadeIn 1s;
+>>>>>>> a35dbb905b34fc68c293f77c694fe9ed2912966b
   position:fixed;
   width: 33%;
   height: 200px;
   border-radius: 10px;
-  top:10%;
-  left:5%;
+  top:40%;
+  right:30%;
+  color: white;
+  /* transform: translate(-50%,-50%); */
 }
 
-.modal-newForm {
-  position:fixed;
-  width: 33%;
-  height: 200px;
-  border-radius: 10px;
-  top:60%;
-  right:5%;
+.jokeButton {
+  color: #f5ae62;
+  font-family: Yanone Kaffeesatz;
+  border: none;
+  background: none;
+  font-size: 1.2rem;
+  font-weight: bold;
 }
+
 
 .display-block {
   display: block;
@@ -133,17 +141,16 @@ nav {
 }
 
 .itemTable {
-  color: #5834eb
-}
+  color: #5834eb;
+  font-family: Yanone Kaffeesatz;
+  }
 
 
 .itemImg {
-
   height: 70%;
 }
 
-
-.cartViewContainer, .formContainer {
+.cartViewContainer {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -151,7 +158,78 @@ nav {
   background: rgba(255, 255, 255, .6);
   border: solid .5px #fdf200;
   border-radius: 10px;
+}
 
+.formContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 1.3rem;
+  background: rgba(255, 255, 255, .7);
+  border: solid .5px #5834eb;
+  border-radius: 10px;
+}
+
+.jokeContainer {
+  background-image: url(https://i.imgur.com/00NcINi.jpg);
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
+  height: 20rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 1.3rem;
+  border: solid 1rem #00feca;
+  border-radius: 10px;
+}
+
+.newForm > label {
+  color: #5834eb;
+  font-family: Yanone Kaffeesatz;
+}
+.newForm > input[type=text] {
+  width: 75%;
+  color: black;
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: solid .5px #5834eb;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.newForm > input[type=number] {
+  width: 75%;
+  color: black;
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: solid .5px #5834eb;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.newForm > input[type=submit] {
+  margin-top: .2rem;
+  background: none;
+  color: #5834eb;
+  border: solid 1px #5834eb;
+  border-radius: 2px;
+}
+
+.newForm > input[type=submit]:hover {
+  transform: scale(1.2, 1.2);
+  transition: transform 330ms ease-in-out;
+  background-color: #5834eb;
+  border-color: white;
+  color: white;
+  opacity: 50%;
+  cursor: pointer;
+}
+
+#gifImg {
+  animation: fadeIn 1s;
+  border: solid 1rem #00feca;
+  border-radius: 10px;
 }
 
 #cartItemCell {
@@ -181,16 +259,27 @@ nav {
   cursor: pointer;
 }
 
-#addToCartBtn, #editBtn {
+#addToCartBtn, #likeButton {
   margin-top: .2rem;
   background: none;
   color: #5834eb;
   border: solid 1px #5834eb;
-
   border-radius: 2px;
 }
 
 #addToCartBtn:hover {
+  transform: scale(1.2, 1.2);
+  transition: transform 330ms ease-in-out;
+  background-color: #5834eb;
+  border-color: white;
+  color: white;
+  opacity: 50%;
+  cursor: pointer;
+}
+
+#likeButton:hover {
+  transform: scale(1.2, 1.2);
+  transition: transform 330ms ease-in-out;
   background-color: #5834eb;
   border-color: white;
   color: white;
@@ -207,17 +296,36 @@ nav {
   cursor: pointer;
 }
 
-#cartIcon {
-  border-radius: 100%;
+#cartIcon:hover {
+  transform: scale(1.33, 1.33);
+  transition: transform 330ms ease-in-out;
+  cursor: pointer;
 }
 
-#cartIcon:hover {
-  background: rgba(255, 255, 255, .2);
-  cursor: pointer;
+.navText, svg {
+  color: #f5ae62
 }
 
 .navText:hover {
-  color: #5834eb;
+  transform: scale(1.33, 1.33);
+  transition: transform 330ms ease-in-out;
+  color: #f5ae62;
+  cursor: pointer;
+}
+
+.jokeButton:hover {
+  transform: scale(1.33, 1.33);
+  transition: transform 330ms ease-in-out;
+  color: #f5ae62;
+  cursor: pointer;
+}
+
+.modalImg:hover {
   opacity: 60%;
   cursor: pointer;
+}
+
+@keyframes fadeIn {
+  0% {opacity:0;}
+  100% {opacity:1;}
 }
