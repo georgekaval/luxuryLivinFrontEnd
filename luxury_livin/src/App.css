@@ -89,9 +89,11 @@ nav {
 
 
 .modal-jokes {
+<<<<<<< HEAD
+=======
   animation: fadeIn 1s;
+>>>>>>> a35dbb905b34fc68c293f77c694fe9ed2912966b
   position:fixed;
-  /* background: rgba(134, 7, 237, .9); */
   width: 33%;
   height: 200px;
   border-radius: 10px;
