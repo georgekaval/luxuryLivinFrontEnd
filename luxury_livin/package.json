@@ -1,6 +1,10 @@
 {
   "name": "luxury_livin",
   "version": "0.1.0",
+  "engines": {
+  "node": "15.4.0",
+  "npm": "7.0.15"   
+},
   "private": true,
   "dependencies": {
     "@testing-library/jest-dom": "^5.11.10",

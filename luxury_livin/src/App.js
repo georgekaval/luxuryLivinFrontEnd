@@ -16,13 +16,8 @@ import Jokes from './Jokes'
 
 
 console.log(process.env.NODE_ENV)
-let baseURL = ''
+let baseURL = process.env.REACT_APP_BASEURL
 
-if (process.env.NODE_ENV === 'development') {
-  baseURL = 'http://localhost:3003'
-} else {
-  baseURL = 'heroku URL' // guess I don't need this but I just did it like this bc lesson was like this
-}
 
 class App extends Component {
   constructor(props) {
@@ -287,7 +282,7 @@ class App extends Component {
                       <tr>
                         <td id='XremoveBtn' onClick={()=> this.deleteCar(car._id)}>x</td>
 
-                        
+
                         <td> <button id="likeButton" onClick={() =>this.addLike(car)}>Like</button><span> {car.likes}</span></td>
                         <td><button id='addToCartBtn' onClick={()=> this.addToCart(item)}>Add To Cart</button></td>
                       </tr>
