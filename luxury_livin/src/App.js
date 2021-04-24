@@ -1,8 +1,6 @@
 import './App.css';
 import React, { Component } from 'react'
 
-
-
 import CartModal from './CartModal'
 import GifModal from './GifModal'
 import Cart from './Cart'
@@ -17,14 +15,14 @@ import Jokes from './Jokes'
 
 
 
-
 console.log(process.env.NODE_ENV)
-let baseURL = process.env.REACT_APP_BASEURL
+let baseURL = ''
 
-
-
-
-
+if (process.env.NODE_ENV === 'development') {
+  baseURL = 'http://localhost:3003'
+} else {
+  baseURL = process.env.REACT_APP_BASEURL // guess I don't need this but I just did it like this bc lesson was like this
+}
 
 class App extends Component {
   constructor(props) {
@@ -32,8 +30,6 @@ class App extends Component {
     this.state = {
       cars: [],
       show: false,
-
-
 
       gifShow: false,
       newFormShow: false,
@@ -43,13 +39,12 @@ class App extends Component {
       gifSearchURL: '',
 
 
-
       showJoke: false,
-
 
       cartItems: [], //<---NOT FROM DATA BASE!!
       userId: '', //<---NOT USING THIS RIGHT NOW
-
+      baseJokesUrl: 'https://api.chucknorris.io/jokes/random',
+      searchURL: '',
     }
   }
 
@@ -63,25 +58,9 @@ class App extends Component {
     })
   }
 
-
-
-// getCart = async () => {
-//   const url = baseURL + '/cart'
-//
-//   try {
-//     const res = await fetch(url, { method: 'GET' })
-//     const cart = await res.json()
-//     this.setState({
-//       cart: cart
-//     })
-//   } catch(err) {
-//     console.log('Error: ', err)
-//   }
-// }
-
-showModal = () => {
-  this.setState( { show: true } )
-}
+  showModal = () => {
+    this.setState( { show: true } )
+  }
 
   hideModal = () => {
     this.setState( { show: false } )
@@ -96,10 +75,9 @@ showModal = () => {
     this.setState( { gifShow: false } )
   }
 
-showNewFormModal = () => {
-  this.setState( { newFormShow: true } )
-
-}
+  showNewFormModal = () => {
+    this.setState( { newFormShow: true } )
+  }
 
   hideNewFormModal = () => {
     this.setState( { newFormShow: false } )
@@ -175,25 +153,7 @@ showNewFormModal = () => {
     this.showJokeModal()
   }
 
-
-handleChange = (event) => {
-this.setState({ [event.target.id]: event.target.value })
-}
-handleSubmit = (event) => {
-  event.preventDefault()
-  this.setState({
-    searchURL:this.state.baseJokesUrl
-  }, () => {
-    fetch(this.state.searchURL)
-    .then(response => {
-      return response.json()
-    }).then(json => this.setState({
-      joke: json,
-    }),
-      err => console.log(err))
-  })
-  this.showJokeModal()
-}
+// Debbie's code
 
   addCar = (newCar) => {
       const copyCars = [...this.state.cars]
